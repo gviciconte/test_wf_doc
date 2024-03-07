@@ -13,7 +13,7 @@ steps:
   - calcjob: aspherix.insertion
 
     inputs:
-      code: aspherix@localhost-test
+      code: aspherix@localhost
 
       shape: sphere
 
