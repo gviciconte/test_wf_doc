@@ -1,0 +1,151 @@
+---
+data:
+  shape: sphere
+
+  domain:
+    low :
+      - "{{ ctx.aspherix_input.min_x }}"
+      - "{{ ctx.aspherix_input.min_y }}"
+      - "{{ ctx.aspherix_input.min_z }}"
+    high :
+      - "{{ ctx.aspherix_input.max_x }}"
+      - "{{ ctx.aspherix_input.max_y }}"
+      - "{{ ctx.aspherix_input.max_z }}"
+  part_prop:
+    coefficientFriction: 0.5
+    coefficientRestitution: 0.65
+    density: "{{ ctx.aspherix_input.density }}"
+    poissonsRatio: 0.3
+    youngsModulus: 5e6
+    thermalConductivity: "{{ ctx.aspherix_input.thermal_conductivity }}"
+    thermalCapacity: "{{ ctx.aspherix_input.thermal_capacity }}"
+    youngsModulusOriginal: 5e6
+    specificElectricalResistance:  "{{ ctx.aspherix_input.electric_resitance }}"
+    contactResistancePrefactor : 0.1
+    electricHeatingPrefactor: 1e-4
+
+  pore_prop:
+    coefficientFriction: 0.5
+    coefficientRestitution: 0.65
+    density: 2500
+    poissonsRatio: 0.3
+    youngsModulus: 5e6
+    thermalConductivity: 1
+    thermalCapacity: 0.5
+    youngsModulusOriginal: 5e6
+    specificElectricalResistance: 0.1
+    contactResistancePrefactor : 0.1
+    electricHeatingPrefactor: 1e-4
+
+
+  wall_prop:
+    coefficientFriction: 0.5
+    coefficientRestitution: 0.65
+    density: 2500
+    poissonsRatio: 0.3
+    youngsModulus: 5.0e6
+    thermalConductivity: 1
+    thermalCapacity: 0.5
+    youngsModulusOriginal: 5e6
+    specificElectricalResistance: 0.1
+    contactResistancePrefactor : 0.1
+    electricHeatingPrefactor: 1e-4
+
+
+  interaction_prop:
+    mat:
+      - part_mat
+      - wall
+    coefficientFriction: 0.5
+    coefficientRestitution: 0.65
+    contactResistancePrefactor: 1e2
+    electricHeatingPrefactor: 1e-6
+
+  interaction_prop1:
+    mat:
+      - pore_mat
+      - wall
+    coefficientFriction: 0.5
+    coefficientRestitution: 0.65
+    contactResistancePrefactor: 1e2
+    electricHeatingPrefactor: 1e-6
+
+  interaction_prop2:
+    mat:
+      - part_mat
+      - pore_mat
+    coefficientFriction: 0.5
+    coefficientRestitution: 0.65
+    contactResistancePrefactor: 1e2
+    electricHeatingPrefactor: 1e-6
+
+
+  mesh1:
+    id: bottom
+    material: wall
+    solid: yes
+    file: bottom.stl
+    temperature: 300
+  mesh2:
+    id: top
+    material: wall
+    solid: yes
+    file: top.stl
+    temperature: 300
+    mesh_modules: "{ servo }"
+
+
+
+  part_temp_1:
+    material: part_mat
+    shape: sphere
+    radius: "{{ ctx.aspherix_input.particle_radius }}"
+  part_temp_2:
+    material: pore_mat
+    shape: sphere
+    radius: 4e-4
+
+
+  insertion_par:
+    -
+
+aspherix_data:
+  shape: sphere
+
+  domain:
+      $ref: "#/data/domain"
+
+  materials_list:
+      part_mat:
+        $ref: "#/data/part_prop"
+      pore_mat:
+        $ref: "#/data/pore_prop"
+      wall:
+        $ref: "#/data/wall_prop"
+      interaction_prop:
+        $ref: "#/data/interaction_prop"
+      interaction_prop1:
+        $ref: "#/data/interaction_prop1"
+      interaction_prop2:
+        $ref: "#/data/interaction_prop2"
+  mesh_list:
+    - $ref: "#/data/mesh1"
+    - $ref: "#/data/mesh2"
+
+  particle_template_list:
+      part:
+        $ref: "#/data/part_temp_1"
+      pore:
+        $ref: "#/data/part_temp_2"
+
+  particle_distribution:
+      id : pd1
+      templates:
+        - part
+        - pore
+      fractions:
+        - 1
+      seed: 527627
+
+  insertion_parameters:
+      $ref: "#/data/insertion_par"

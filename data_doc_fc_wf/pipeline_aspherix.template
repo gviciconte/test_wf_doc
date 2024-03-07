@@ -1,0 +1,28 @@
+version: 1
+path:
+strategies:
+  - dataresource: load_data
+    downloadUrl: "file://{path:s}/aspherix_input.yml"
+    mediaType: application/vnd.dlite-parse
+    configuration:
+      driver: yaml
+      options: "mode=r"
+      label: aspherix_input
+
+
+  - mapping: mappings
+    mappingType: triples
+    prefixes:
+      emmo: http://emmo.info/emmo#
+      map: http://emmo.info/domain-mappings#
+      di: http://ontotrans.eu/meta/0.1/aspherixINPUT#
+    triples: []
+
+
+  - function: cuds2datanode
+    functionType: aiidacuds/cuds2datanode
+    configuration:
+      names: from_cuds
+
+pipelines:
+  pipe: load_data | mappings  | cuds2datanode

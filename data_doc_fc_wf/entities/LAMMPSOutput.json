@@ -1,0 +1,12 @@
+{
+  "uri": "http://ontotrans.eu/meta/0.1/LAMMPSOutput",
+  "description": "Output from a specialised LAMMPS simulation.",
+  "dimensions": [],
+  "properties": {
+    "density": {
+      "type": "float",
+      "unit": "gram/cm^3",
+      "description": "Converged density from LAAMPS."
+    }
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "uri": "http://openmodel.eu/meta/0.1/AspherixInput",
+  "description": "Input for Fuel cell workflow",
+  "dimensions": [],
+  "properties": {
+    "particle_radius": {
+      "type": "float",
+      "description": "Particle radius in the simulation"
+    },
+    "density": {
+      "type": "float",
+      "description": "Density of the particles"
+    },
+    "electric_resitance": {
+      "type": "float",
+      "description": "Electric resitance"
+    },
+    "thermal_capacity": {
+      "type": "float",
+      "description": "Thermal capacity"
+    },
+    "thermal_conductivity": {
+      "type": "float",
+      "description": "Thermal conductivity"
+    },
+    "min_x": {
+      "type": "float",
+      "description": "Minimun dimension of the domain in x direction"
+    },
+    "min_y": {
+      "type": "float",
+      "description": "Minimun dimension of the domain in y direction"
+    },
+    "min_z": {
+      "type": "float",
+      "description": "Minimun dimension of the domain in z direction"
+    },
+    "max_x": {
+      "type": "float",
+      "description": "Maximun dimension of the domain in x direction"
+    },
+    "max_y": {
+      "type": "float",
+      "description": "Maximun dimension of the domain in y direction"
+    },
+    "max_z": {
+      "type": "float",
+      "description": "Maximun dimension of the domain in z direction"
+    },
+    "porosity": {
+      "type": "float",
+      "description": "Micro porous layer porosity measured "
+    },
+    "max_iter_p": {
+      "type": "float",
+      "description": "Maximun iteration in the porosity calibration routine"
+    },
+    "resistivity": {
+      "type": "float",
+      "description": "Fuel Cell resistivity:  measured "
+    },
+    "max_iter_r": {
+      "type": "float",
+      "description": "Maximun iteration in the resistivity calibration routine"
+    },
+    "th_resistivity": {
+      "type": "float",
+      "description": "Fuel Cell thermal resistivity:  measured "
+    },
+    "max_iter_t": {
+      "type": "float",
+      "description": "Maximun iteration in the thermal resistivity calibration routine"
+    },
+    "Ox_velocity_x": {
+      "type": "float",
+      "description": "X component of the oxygen velocity at the boundary"
+    },
+    "Ox_velocity_y": {
+      "type": "float",
+      "description": "Y component of the oxygen velocity at the boundary"
+    },
+    "Ox_velocity_z": {
+      "type": "float",
+      "description": "Z component of the oxygen velocity at the boundary"
+    },
+    "Steam_velocity_x": {
+      "type": "float",
+      "description": "X component of the steam velocity at the boundary"
+    },
+    "Steam_velocity_y": {
+      "type": "float",
+      "description": "Y component of the steam velocity at the boundary"
+    },
+    "Steam_velocity_z": {
+      "type": "float",
+      "description": "Z component of the steam velocity at the boundary"
+    },
+    "potential_difference": {
+      "type": "float",
+      "description": "Electric potential difference in the simulation "
+    }
+
+  }
+}

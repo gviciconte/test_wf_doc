@@ -1,0 +1,18 @@
+{
+  "100aaf1c-7b45-4a2a-a6c2-179b1f41b252":   {
+    "meta": "http://ontotrans.eu/meta/0.1/LAMMPSOutput",
+    "dimensions": {
+    },
+    "properties": {
+      "density": 0.984407
+    }
+  },
+  "95b8beaf-eeb6-43f8-9534-4d2fcbbd12ce": {
+    "meta": "http://ontotrans.eu/meta/0.1/LAMMPSOutput",
+    "dimensions": {
+    },
+    "properties": {
+      "density": 0.984407
+    }
+  }
+}

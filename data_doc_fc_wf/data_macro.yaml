@@ -1,0 +1,141 @@
+---
+data:
+  domain:
+    low :
+      - 0
+      - 0
+      - -0.0015e-3
+    high :
+      - 10e-3
+      - 10e-3
+      - 30e-3
+
+  part_prop:
+    coefficientFriction: 0.5
+    coefficientRestitution: 0.65
+    density: 2500
+    poissonsRatio: 0.3
+    youngsModulus: 5e6
+    thermalConductivity: 1
+    thermalCapacity: 0.5
+    youngsModulusOriginal: 5e6
+    specificElectricalResistance: 0.1
+    contactResistancePrefactor : 0.1
+    electricHeatingPrefactor: 1e-4
+
+  wall_prop:
+    coefficientFriction: 0.5
+    coefficientRestitution: 0.65
+    density: 2500
+    poissonsRatio: 0.3
+    youngsModulus: 5.0e6
+    thermalConductivity: 1
+    thermalCapacity: 0.5
+    youngsModulusOriginal: 5e6
+    specificElectricalResistance: 0.1
+    contactResistancePrefactor : 0.1
+    electricHeatingPrefactor: 1e-4
+
+
+  interaction_prop:
+    mat:
+      - part_mat
+      - wall
+    coefficientFriction: 0.5
+    coefficientRestitution: 0.65
+    contactResistancePrefactor: 1e2
+    electricHeatingPrefactor: 1e-6
+
+  mesh1:
+    id: bottom
+    material: wall
+    solid: yes
+    file: bottom.stl
+    temperature: 300
+  mesh2:
+    id: top
+    material: wall
+    solid: yes
+    file: top.stl
+    temperature: 300
+    mesh_modules: "{ servo }"
+
+
+
+  part_temp_1:
+    material: part_mat
+    shape: convex
+    file: fiber.stl
+    scale_axes: "( 0.00004, 0.00004, 0.00009 )"
+  part_temp_2:
+    material: part_mat
+    shape: convex
+    file: fiber.stl
+    scale_axes: "( 0.00005, 0.00005, 0.00005 )"
+
+  insertion_region:
+    name : ins_reg
+    style : block
+    low :
+      - 0
+      - 0
+      - 10e-3
+    high:
+      - 10e-3
+      - 10e-3
+      - 30e-3
+
+  insertion_par:
+    id: ins1
+    mode : pack
+    region :
+      $ref: "#/data/insertion_region"
+    insert_every_time : 0.02
+    target_particle_count : 10
+    particle_distribution : pd1
+    velocity : constant ( 0, 0, -1 )
+    orientation : random
+    disable_few_particles_error: yes
+
+
+aspherix_data:
+  shape: convex
+
+  convex_particle:
+        /home/giovanni/Desktop/Projects/OpenModel/ExecFlowSS6/execflowPlugin/input_files/fiber.stl
+
+  domain:
+      $ref: "#/data/domain"
+
+  materials_list:
+        part_mat:
+          $ref: "#/data/part_prop"
+        wall:
+          $ref: "#/data/wall_prop"
+        interaction_prop:
+          $ref: "#/data/interaction_prop"
+
+  mesh_list:
+    - $ref: "#/data/mesh1"
+    - $ref: "#/data/mesh2"
+
+  particle_template_list:
+      template_1:
+        $ref: "#/data/part_temp_1"
+      template_2:
+        $ref: "#/data/part_temp_2"
+
+  particle_distribution:
+      id : pd1
+      templates:
+        - template_1
+        - template_2
+      fractions:
+        - 0.5
+        - 0.5
+      seed: 527627
+
+  folder_mesh: /home/giovanni/Desktop/Projects/OpenModel/ExecFlowSS6/data_doc_fc_wf/meshes
+
+  insertion_parameters:
+      $ref: "#/data/insertion_par"

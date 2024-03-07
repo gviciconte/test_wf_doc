@@ -1,0 +1,44 @@
+[build-system]
+# build the package with [flit](https://flit.readthedocs.io)
+requires = ["flit_core >=3.4,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+# See https://www.python.org/dev/peps/pep-0621/
+name = "aiida-fc-calibration"
+dynamic = ["version"]  # read from aiida_aspherix/__init__.py
+description = "AiiDA demo plugin that wraps the `aspherix` executable "
+authors = [{name = "The AiiDA Team"}]
+readme = "README.md"
+license = {file = "LICENSE"}
+classifiers = [
+    "Programming Language :: Python",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: English",
+    "Development Status :: 3 - Alpha",
+    "Framework :: AiiDA"
+]
+keywords = ["aiida", "plugin"]
+requires-python = ">=3.8"
+dependencies = [
+    "aiida-core>=2.0,<3",
+]
+
+
+[project.entry-points."aiida.calculations"]
+"fc_calibration.porosity" = "aiida_fc_calibration.calculations.calibration.porosity:Calibration"
+"fc_calibration.resistivity" = "aiida_fc_calibration.calculations.calibration.resistivity:Calibration"
+"fc_calibration.th_conductivity" = "aiida_fc_calibration.calculations.calibration.th_conductivity:Calibration"
+
+[project.entry-points."aiida.parsers"]
+"calibration" = "aiida_fc_calibration.parsers:PorosityParser"
+"calibration_res" = "aiida_fc_calibration.parsers:CalibrationParser"
+
+[project.entry-points."aiida.data"]
+"porosity" = "aiida_fc_calibration.data:AspherixPositions"
+
+[tool.flit.module]
+name = "aiida_fc_calibration"
+
+

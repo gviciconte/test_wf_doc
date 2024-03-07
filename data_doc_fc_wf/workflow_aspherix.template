@@ -1,0 +1,53 @@
+---
+data_micro:
+  $ref: 'file://{path:s}/data_micro.yaml'
+
+data_macro:
+  $ref: 'file://{path:s}/data_macro.yaml'
+
+asx_data_macro:
+  $ref: "#/data_macro/aspherix_data"
+
+steps:
+  - workflow: execflow.oteapipipeline
+    inputs:
+      pipeline:
+        $ref: 'file://{path:s}/pipeline_aspherix.yml'
+      from_cuds:
+        - aspherix_input
+    postprocess:
+      - "{{{{ ctx.current.outputs['collection_id']|to_results('collection_uuid') }}}}"
+      - "{{{{ ctx.current.outputs['results']['aspherix_input']|to_ctx('aspherix_input') }}}}"
+
+  - workflow: fc_workflows
+    inputs:
+
+      CalcParameters:
+        "$ref": "#/data_micro/aspherix_data"
+
+      CalcParametersMacro:
+        "$ref": "#/data_macro/aspherix_data"
+
+
+      py: python@localhost-test
+
+      asx: aspherix@localhost-test
+
+      cfdem: bash@localhost-test
+
+      problemParameters:
+          solver: cfdemSolverMultiPhaseEuler
+          deltaV: "{{{{ ctx.aspherix_input.potential_difference }}}}"
+          OxigenVelocity:
+            - "{{{{ ctx.aspherix_input.Ox_velocity_x }}}}"
+            - "{{{{ ctx.aspherix_input.Ox_velocity_y }}}}"
+            - "{{{{ ctx.aspherix_input.Ox_velocity_z }}}}"
+          SteamVelocity:
+            - "{{{{ ctx.aspherix_input.Steam_velocity_x }}}}"
+            - "{{{{ ctx.aspherix_input.Steam_velocity_y }}}}"
+            - "{{{{ ctx.aspherix_input.Steam_velocity_z }}}}"
+
+      measured:
+          porosityMeasured: "{{{{ ctx.aspherix_input.porosity }}}}"
+          resistivityMeasured: "{{{{ ctx.aspherix_input.resistivity }}}}"
+          thConductivityMeasured: "{{{{ ctx.aspherix_input.th_resistivity }}}}"
