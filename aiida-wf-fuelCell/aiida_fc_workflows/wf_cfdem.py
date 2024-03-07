@@ -50,6 +50,14 @@ class InsertionAndComputation(WorkChain):
             "AsxParametersMicro": asxData,
             "metadata": {
                 "description": "Test job submission with the aiida_aspherix plugin",
+                'options': {
+                    'withmpi': False,
+                    'max_wallclock_seconds': 6000,
+                    'resources': {
+                        'num_machines': 1,
+                        'num_mpiprocs_per_machine': 1,
+                        }
+                    }
             },
         }
         future = self.submit(PorosityCalibration, **inputs)
@@ -73,6 +81,14 @@ class InsertionAndComputation(WorkChain):
             "particle_template_list": Dict(asxData._part_temp_dict),
             "metadata": {
                 "description": "Test job submission with the aiida_aspherix plugin",
+                'options': {
+                    'withmpi': False,
+                    'max_wallclock_seconds': 6000,
+                    'resources': {
+                        'num_machines': 1,
+                        'num_mpiprocs_per_machine': 1,
+                        }
+                    }
             },
          }
         future = self.submit(AspherixInsertion, **inputs)
@@ -99,6 +115,14 @@ class InsertionAndComputation(WorkChain):
             "AsxParametersMacro": aspherix_data_macro,
             "metadata": {
                 "description": "Test job submission with the aiida_aspherix plugin",
+                'options': {
+                    'withmpi': False,
+                    'max_wallclock_seconds': 6000,
+                    'resources': {
+                        'num_machines': 1,
+                        'num_mpiprocs_per_machine': 1,
+                        }
+                    }
             },
         }
         future = self.submit(ResistivityCalibration, **inputs)
@@ -123,6 +147,14 @@ class InsertionAndComputation(WorkChain):
             "AsxParametersMacro": aspherix_data_macro,
             "metadata": {
                 "description": "Test job submission with the aiida_aspherix plugin",
+                'options': {
+                    'withmpi': False,
+                    'max_wallclock_seconds': 6000,
+                    'resources': {
+                        'num_machines': 1,
+                        'num_mpiprocs_per_machine': 1,
+                        }
+                    }
             },
         }
         future = self.submit(ThConductivityCalibration, **inputs)
@@ -161,8 +193,16 @@ class InsertionAndComputation(WorkChain):
             "particle_template_list": Dict(asxData._part_temp_dict),
             "metadata": {
                 "description": "Test job submission with the aiida_aspherix plugin",
-                    },
-            }
+                'options': {
+                    'withmpi': False,
+                    'max_wallclock_seconds': 6000,
+                    'resources': {
+                        'num_machines': 1,
+                        'num_mpiprocs_per_machine': 1,
+                        }
+                    }
+            },
+        }
         future = self.submit(CfdemCal, **inputs)
 
         return ToContext(cfdem=future)
