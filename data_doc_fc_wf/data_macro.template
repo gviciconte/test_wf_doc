@@ -58,7 +58,7 @@ data:
     solid: yes
     file: top.stl
     temperature: 300
-    mesh_modules: "{ servo }"
+    mesh_modules: "{{ servo }}"
 
 
 
