@@ -29,7 +29,7 @@ steps:
         "$ref": "#/data_macro/aspherix_data"
 
 
-      py: python@localhost
+      py: python3@localhost
 
       asx: aspherix@localhost
 

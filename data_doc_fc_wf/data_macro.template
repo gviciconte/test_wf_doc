@@ -102,7 +102,7 @@ aspherix_data:
   shape: convex
 
   convex_particle:
-        /home/giovanni/Desktop/Projects/OpenModel/ExecFlowSS6/execflowPlugin/input_files/fiber.stl
+        {path:s}/input_files/fiber.stl
 
   domain:
       $ref: "#/data/domain"
@@ -135,7 +135,7 @@ aspherix_data:
         - 0.5
       seed: 527627
 
-  folder_mesh: /home/giovanni/Desktop/Projects/OpenModel/ExecFlowSS6/data_doc_fc_wf/meshes
+  folder_mesh: {path:s}/meshes
 
   insertion_parameters:
       $ref: "#/data/insertion_par"

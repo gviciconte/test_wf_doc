@@ -45,6 +45,15 @@ with open("workflow_aspherix.template", "r") as simulationContent:
     )
 fout.close()
 
+fout = open("data_macro.yaml", "w")
+with open("data_macro.template", "r") as simulationContent:
+    fout.write(
+        f"{simulationContent.read()}".format(
+            path = os.getcwd()
+        )
+    )
+fout.close()
+
 
 if __name__ == "__main__":
     workflow = 'workflow_aspherix.yaml'
