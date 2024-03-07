@@ -29,11 +29,11 @@ steps:
         "$ref": "#/data_macro/aspherix_data"
 
 
-      py: python@localhost-test
+      py: python@localhost
 
-      asx: aspherix@localhost-test
+      asx: aspherix@localhost
 
-      cfdem: bash@localhost-test
+      cfdem: bash@localhost
 
       problemParameters:
           solver: cfdemSolverMultiPhaseEuler
