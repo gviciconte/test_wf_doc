@@ -1,0 +1,51 @@
+{
+  "uri": "http://ontotrans.eu/meta/0.1/AspherixInput",
+  "description": "Input for aiida diff plugin",
+  "dimensions": [],
+  "properties": {
+    "particle_radius": {
+      "type": "float",
+      "description": "Particle radius in the simulation"
+    },
+    "density": {
+      "type": "float",
+      "description": "String describing the path of a file"
+    },
+    "electric_resitance": {
+      "type": "float",
+      "description": "String describing the path of a file"
+    },
+    "thermal_capacity": {
+      "type": "float",
+      "description": "String describing the path of a file"
+    },
+    "thermal_conductivity": {
+      "type": "float",
+      "description": "String describing the path of a file"
+    },
+    "min_x": {
+      "type": "float",
+      "description": "String describing the path of a file"
+    },
+    "min_y": {
+      "type": "float",
+      "description": "String describing the path of a file"
+    },
+    "min_z": {
+      "type": "float",
+      "description": "String describing the path of a file"
+    },
+    "max_x": {
+      "type": "float",
+      "description": "String describing the path of a file"
+    },
+    "max_y": {
+      "type": "float",
+      "description": "String describing the path of a file"
+    },
+    "max_z": {
+      "type": "float",
+      "description": "String describing the path of a file"
+    }
+  }
+}

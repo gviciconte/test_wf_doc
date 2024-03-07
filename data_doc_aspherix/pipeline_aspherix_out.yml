@@ -1,0 +1,9 @@
+---
+version: 1
+strategies:
+  - function: datanode2cuds
+    functionType: aiidacuds/datanode2cuds
+    configuration:
+      names: to_cuds
+pipelines:
+  pipe: datanode2cuds

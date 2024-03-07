@@ -1,0 +1,104 @@
+---
+steps:
+  - workflow: execflow.oteapipipeline
+    inputs:
+      pipeline:
+        $ref: 'file://{path:s}/pipeline_aspherix.yaml'
+      from_cuds:
+        - aspherix_input
+    postprocess:
+      - "{{{{ ctx.current.outputs['collection_id']|to_results('collection_uuid') }}}}"
+      - "{{{{ ctx.current.outputs['results']['aspherix_input']|to_ctx('aspherix_input') }}}}"
+
+  - calcjob: aspherix.insertion
+
+    inputs:
+      code: aspherix@localhost-test
+
+      shape: sphere
+
+      domain:
+        low :
+          - "{{{{ ctx.aspherix_input.min_x }}}}"
+          - "{{{{ ctx.aspherix_input.min_y }}}}"
+          - "{{{{ ctx.aspherix_input.min_z }}}}"
+        high :
+          - "{{{{ ctx.aspherix_input.max_x }}}}"
+          - "{{{{ ctx.aspherix_input.max_y }}}}"
+          - "{{{{ ctx.aspherix_input.max_z }}}}"
+
+      materials_list:
+        mat_1:
+          coefficientFriction: 0.5
+          coefficientRestitution: 0.65
+          density: "{{{{ ctx.aspherix_input.density }}}}"
+          poissonsRatio: 0.3
+          youngsModulus: 5e6
+          thermalConductivity: "{{{{ ctx.aspherix_input.thermal_conductivity }}}}"
+          thermalCapacity: "{{{{ ctx.aspherix_input.thermal_capacity }}}}"
+          youngsModulusOriginal: 5e6
+        wall:
+          coefficientFriction: 0.5
+          coefficientRestitution: 0.65
+          density: 2500
+          poissonsRatio: 0.3
+          youngsModulus: 5.0e6
+          thermalConductivity: 1
+          thermalCapacity: 0.5
+          youngsModulusOriginal: 5e6
+        interaction_prop:
+          mat:
+          - mat_1
+          - wall
+          coefficientFriction: 0.5
+          coefficientRestitution: 0.65
+
+      particle_template_list:
+        template_1:
+          material: mat_1
+          shape: sphere
+          radius: "{{{{ ctx.aspherix_input.particle_radius }}}}"
+
+      particle_distribution:
+        id : pd1
+        templates:
+          - template_1
+        fractions:
+          - 1
+        seed: 527627
+
+      insertion_parameters:
+        id: ins1
+        mode : pack
+        region :
+          name : ins_reg
+          style : block
+          low :
+            - 0
+            - 0
+            - 10e-3
+          high:
+            - 10e-3
+            - 10e-3
+            - 30e-3
+        insert_every_time : 0.01
+        target_particle_count : 100
+        particle_distribution : pd1
+        velocity : constant ( 0, 0, -1 )
+        orientation : random
+        disable_few_particles_error: yes
+
+    postprocess:
+      - "{{{{ ctx.current.outputs['aspherix_points_info']|to_ctx('aspherix_points_info') }}}}"
+      - "{{{{ ctx.current.outputs['restart_file']|to_ctx('restart_file') }}}}"
+
+  - workflow: execflow.oteapipipeline
+    inputs:
+      pipeline:
+        $ref: 'file://{path:s}/pipeline_aspherix_out.yml'
+      to_cuds:
+        - restart_file
+
+
+      points_file: "{{{{ ctx.aspherix_points_info }}}}"
+      restart_file: "{{{{ ctx.restart_file }}}}"

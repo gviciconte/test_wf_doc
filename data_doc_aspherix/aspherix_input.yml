@@ -1,0 +1,15 @@
+aspherix_input:
+  meta: http://ontotrans.eu/meta/0.1/AspherixInput
+  dimensions: {}
+  properties:
+    particle_radius: 0.0001
+    density: 2500.
+    electric_resitance: 0.1
+    thermal_capacity: 0.5
+    thermal_conductivity: 1.
+    min_x: 0.0
+    min_y: 0.0
+    min_z: -0.000001
+    max_x: 0.01
+    max_y: 0.01
+    max_z: 0.03    
